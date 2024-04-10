@@ -1,0 +1,6 @@
+[MESSAGES CONTROL]
+disable = all
+enable=disallowed-name
+
+[BASIC]
+bad-names-rgxs=(?i)vadim
