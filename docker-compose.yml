@@ -3,12 +3,17 @@ services:
     app:
         container_name: ci-cd-app
         build:
-            dockerfile: Dockerfile_app
-            context: .
+            dockerfile: ./Dockerfile_app
         ports:
             - "127.0.0.1:${APP_PORT}:5000"
-            - "127.0.0.1:5022:22"
+            - "127.0.0.1:2222:22"
         deploy:
             resources:
                 limits:
                     cpus: "1"
+    tester:
+        container_name: ci-cd-tester
+        build:
+            dockerfile: Dockerfile_tester
+        depends_on:
+            - app
