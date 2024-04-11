@@ -15,5 +15,7 @@ services:
         container_name: ci-cd-tester
         build:
             dockerfile: Dockerfile_tester
+        volumes:
+            - ./tests/test_results:/devops-examples/EXAMPLE_APP/tests/test_results
         depends_on:
             - app
