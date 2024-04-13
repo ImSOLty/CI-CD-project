@@ -13,6 +13,8 @@ services:
                     cpus: "1"
     tester:
         container_name: ci-cd-tester
+        env_file:
+            - .env
         build:
             dockerfile: Dockerfile_tester
         volumes:

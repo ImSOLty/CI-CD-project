@@ -2,3 +2,4 @@
 .idea
 .env
 /tests/test_results
+*__pycache__*

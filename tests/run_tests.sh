@@ -44,7 +44,7 @@ function integration_tests {
 function selenium_tests {
   echo -e "${CYAN}SELENIUM TESTS${NC}";
   # run tests with selenium_tests marker from selenium_tests.py script
-  pytest -s -v --tb=line -m selenium_tests ${TESTS_FOLDER}/selenium_tests.py \
+  pytest -s -v --tb=line -m selenium_tests -c ${TESTS_FOLDER}/pytest.ini ${TESTS_FOLDER}/selenium_tests \
    > >(tee -a ${TESTS_FOLDER}/test_results/stdout.log) 2> >(tee -a ${TESTS_FOLDER}/test_results/stderr.log >&2) &> >(tee -a /proc/1/fd/1);
   # screenshots from selenium are placed under <project_directory>/tests/test_results
 }
