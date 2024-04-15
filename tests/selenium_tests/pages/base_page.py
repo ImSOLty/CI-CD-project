@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from .control.js_scripts import JSScript
 
-TEST_RESULTS = os.path.join(os.getcwd(), 'test_results/')
+TEST_RESULTS = os.path.join(os.path.dirname(__file__), '../../test_results/')
 SCREENSHOT_FORMAT = "%Y-%m-%d-%H-%M-%S-%f"
 
 class BasePage:
@@ -53,7 +53,7 @@ class BasePage:
             self._browser.execute_script(JSScript.REMOVE_ELEMENT, el)
 
     def wait_until(self, until_action):
-        WebDriverWait(self._browser, 5).until(
+        WebDriverWait(self._browser, 10).until(
             until_action
         )
 

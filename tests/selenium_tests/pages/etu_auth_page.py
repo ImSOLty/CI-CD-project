@@ -1,3 +1,5 @@
+import time
+
 from .base_page import BasePage
 from .control.locators import AuthEtuLocators
 

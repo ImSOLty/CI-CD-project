@@ -1,4 +1,5 @@
 import json
+import os
 
 import time
 import random
@@ -43,18 +44,16 @@ class DocumentPage(TrajectoriesPage):
             options = self.find_multiple_by_locator(DocumentPageLocators.MULTISELECT_FIELDS_OPTION)
             if len(options) > 0:
                 self.result[f'{upper_tab_num},{left_tab_num},multiselect,{i}'] = options[0].text
-                print(self.result)
+
                 options[0].click()
         for i, textarea_field in enumerate(self.find_multiple_by_locator(DocumentPageLocators.TEXTAREA_FIELDS)):
             value = generate_random_numeric()
             textarea_field.send_keys(value)
             self.result[f'{upper_tab_num},{left_tab_num},textarea_field,{i}'] = value
-            print(self.result)
         for i, input_field in enumerate(self.find_multiple_by_locator(DocumentPageLocators.INPUT_FIELDS)):
             value = generate_random_numeric()
             input_field.send_keys(value)
             self.result[f'{upper_tab_num},{left_tab_num},input_field,{i}'] = value
-            print(self.result)
         for i, card_field in enumerate(self.find_multiple_by_locator(DocumentPageLocators.CARDS_FIELDS)):
             self.fill_card(upper_tab_num, left_tab_num, card_field, i)
 
@@ -75,7 +74,6 @@ class DocumentPage(TrajectoriesPage):
                 options = self.find_multiple_by_locator(DocumentPageLocators.MULTISELECT_FIELDS_OPTION)
                 if len(options) > 0:
                     self.result[f'{upper_tab_num},{left_tab_num},card,{card_id},{k}'] = options[0].text
-                    print(self.result)
                     options[0].click()
                 else:
                     value = generate_random_numeric()
@@ -86,7 +84,6 @@ class DocumentPage(TrajectoriesPage):
                         locator = DocumentPageLocators.TEXTAREA_FIELDS
                         elem.find_element(locator[0], locator[1]).send_keys(value)
                     self.result[f'{upper_tab_num},{left_tab_num},card,{card_id},{k}'] = value
-                    print(self.result)
 
             # search for expanding button
             locator = DocumentPageLocators.LAST_EXPANDING_BUTTON
@@ -111,4 +108,9 @@ class DocumentPage(TrajectoriesPage):
         self.wait_element_loaded(DocumentPageLocators.JSON_COPY_BUTTON)
         self.find_by_locator(DocumentPageLocators.JSON_COPY_BUTTON).click()
         self.wait_element_loaded(DocumentPageLocators.JSON_COPIED_RESPONSE)
+
+        if os.environ.get('DISPLAY', '') == '':
+            print('no display found. Using :0.0')
+            os.environ.__setitem__('DISPLAY', ':0.0')
+
         return json.loads(Tk().clipboard_get().replace('\n', ''))

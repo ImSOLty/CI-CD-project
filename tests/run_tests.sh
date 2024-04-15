@@ -43,10 +43,17 @@ function integration_tests {
 
 function selenium_tests {
   echo -e "${CYAN}SELENIUM TESTS${NC}";
+  exec -a xvfb-run Xvfb :1 -screen 0 1920x1080x16 &> xvfb.log  &
+
+  DISPLAY=:1.0
+  export DISPLAY
+
   # run tests with selenium_tests marker from selenium_tests.py script
-  pytest -s -v --tb=line -m selenium_tests -c ${TESTS_FOLDER}/pytest.ini ${TESTS_FOLDER}/selenium_tests \
+  pytest -s -v -m selenium_tests -c ${TESTS_FOLDER}/pytest.ini ${TESTS_FOLDER}/selenium_tests \
    > >(tee -a ${TESTS_FOLDER}/test_results/stdout.log) 2> >(tee -a ${TESTS_FOLDER}/test_results/stderr.log >&2) &> >(tee -a /proc/1/fd/1);
   # screenshots from selenium are placed under <project_directory>/tests/test_results
+
+  kill $(pgrep -f xvfb-run)
 }
 
 if [ $# -eq 0 ]

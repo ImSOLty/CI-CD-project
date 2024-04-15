@@ -5,9 +5,8 @@ RUN apt-get update && apt-get install -y \
     git=1:2.34.1-1ubuntu1.10 \
     python3=3.10.6-1~22.04 \
     python3-pip=22.0.2+dfsg-1ubuntu0.4 \
-    wget=1.21.2-2ubuntu1
-
-# RUN printf "Y\n8\n34\n" | apt-get install python3-tk
+    wget=1.21.2-2ubuntu1 \
+    xvfb=2:21.1.4-2ubuntu1.7~22.04.10
 
 # Installing google chrome for selenium tests
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
@@ -25,6 +24,9 @@ RUN pip install \
     pytest==8.1.1 \
     selenium==4.19.0 \
     webdriver-manager==4.0.1
+
+# Installing tk for copying json
+RUN DEBIAN_FRONTEND=noninteractive TZ=Europe/Moscow apt-get install -y python3-tk=3.10.8-1~22.04
 
 # Copying tests files
 COPY tests ./tests

@@ -1,5 +1,7 @@
 import re
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 
 from .pages.trajectories_page import TrajectoriesPage
 from .pages.etu_auth_page import EtuAuthPage
@@ -10,18 +12,21 @@ from .pages.document_page import DocumentPage
 from .pages.control.urls import Urls
 from .data_test import DataTest
 
+
 class TrajectoriesActions:
     _content = None
     _json_data = None
 
     def authorize_lk_etu(self, browser: WebDriver, login, password):
         traj_page = TrajectoriesPage(browser, Urls.TRAJECTORIES)
+        traj_page.take_screenshot()
         traj_page.remove_modal_if_exists()
         traj_page.accept_cookies()
         traj_page.enter_by_etu()
 
         etu_lk_page = EtuAuthPage(traj_page.get_browser())
         etu_lk_page.take_screenshot()
+
         etu_lk_page.authorize_by_form(login, password)
 
         # Auth trajectories with ETU ID:
@@ -59,10 +64,10 @@ class TrajectoriesActions:
         document_page.remove_modal_if_exists()
         document_page.wait_loading()
         document_page.take_screenshot()
-        document_page.set_implicit_wait(0.5)
+        document_page.set_implicit_wait(1)
         self._content = document_page.fill_sections()
         document_page.take_screenshot()
-        document_page.set_implicit_wait(5)
+        document_page.set_implicit_wait(10)
         document_page.save_document()
         document_page.take_screenshot()
 
