@@ -37,7 +37,7 @@ function pylint_tests {
 function integration_tests {
   echo -e "${CYAN}INTEGRATION TESTS${NC}";
   # run tests with integration_tests marker from integration_tests.py script
-  pytest -s -v --tb=line -m integration_tests ${TESTS_FOLDER}/integration_tests.py \
+  pytest -s -v -m integration_tests ${TESTS_FOLDER}/integration_tests.py \
    > >(tee -a ${TESTS_FOLDER}/test_results/stdout.log) 2> >(tee -a ${TESTS_FOLDER}/test_results/stderr.log >&2) &> >(tee -a /proc/1/fd/1);
 }
 
