@@ -77,7 +77,7 @@ class TrajectoriesActions:
         document_page.wait_loading()
         document_page.take_screenshot()
         self._json_data = document_page.get_document_in_json()
-        print(self._json_data)
+        # print(self._json_data)
         document_page.take_screenshot()
 
     def check_if_data_is_saved(self):

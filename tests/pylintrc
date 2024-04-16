@@ -1,3 +1,6 @@
+[MAIN]
+ignore=selenium_tests, integration_tests.py
+
 [MESSAGES CONTROL]
 disable = all
 enable = basic, classes, design, format, imports, nonascii-checker, spelling, string, variables, typecheck

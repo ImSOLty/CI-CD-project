@@ -43,6 +43,8 @@ function integration_tests {
 
 function selenium_tests {
   echo -e "${CYAN}SELENIUM TESTS${NC}";
+
+  # Attach display
   exec -a xvfb-run Xvfb :1 -screen 0 1920x1080x16 &> xvfb.log  &
 
   DISPLAY=:1.0
